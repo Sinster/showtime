@@ -1,0 +1,164 @@
+#import "theme://include/defs.view"
+#import "theme://include/buttons.view"
+#import "theme://include/separators.view"
+#import "theme://include/popup.view"
+
+widget(container_x, {
+  space(0.2);
+
+  widget(container_y, {
+    .weight = 1.0;
+
+    .align = center;
+    
+    popupGroup(
+      .filterConstraintX = true;
+      
+      widget(container_y, {
+	.spacing = 4;
+	widget(container_x, {
+		widget(label, {
+		  .maxlines = 10;
+		  .align = center;
+		  .caption = $self.message;
+		});
+	});
+	HORIZONTAL_SEPARATOR();
+
+	popupInputField(
+	  .hidden = $self.disableUsername;
+ 	  widget(text, {
+	    .id = "input";
+	    .focusable = true;
+	    bind($self.input);
+
+	    onEvent(enter, deliverEvent($self.eventSink, "Ok"));
+	    onEvent(cancel, deliverEvent($self.eventSink));
+	  });
+	);
+
+	widget(container_x, {
+	  .align = center;
+	  .spacing = 10;
+	  .homogenous = true;
+
+	  _glossybuttonTextOnly(CAPTION=_("1"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd1"));
+	  _glossybuttonTextOnly(CAPTION=_("2"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd2"));
+	  _glossybuttonTextOnly(CAPTION=_("3"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd3"));
+	  _glossybuttonTextOnly(CAPTION=_("4"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd4"));
+	  _glossybuttonTextOnly(CAPTION=_("5"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd5"));
+	  _glossybuttonTextOnly(CAPTION=_("6"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd6"));
+	  _glossybuttonTextOnly(CAPTION=_("7"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd7"));
+	  _glossybuttonTextOnly(CAPTION=_("8"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd8"));
+	  _glossybuttonTextOnly(CAPTION=_("9"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd9"));
+	  _glossybuttonTextOnly(CAPTION=_("0"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd0"));
+	});
+
+	widget(container_x, {
+	  .align = center;
+	  .spacing = 10;
+	  .homogenous = true;
+	  _glossybuttonTextOnly(CAPTION=_("q"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdQ"));
+	  _glossybuttonTextOnly(CAPTION=_("w"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdW"));
+	  _glossybuttonTextOnly(CAPTION=_("e"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdE"));
+	  _glossybuttonTextOnly(CAPTION=_("r"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdR"));
+	  _glossybuttonTextOnly(CAPTION=_("t"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdT"));
+	  _glossybuttonTextOnly(CAPTION=_("y"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdY"));
+	  _glossybuttonTextOnly(CAPTION=_("u"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdU"));
+	  _glossybuttonTextOnly(CAPTION=_("i"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdI"));
+	  _glossybuttonTextOnly(CAPTION=_("o"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdO"));
+	  _glossybuttonTextOnly(CAPTION=_("p"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdP"));
+      });
+
+	widget(container_x, {
+	  .align = center;
+	  .spacing = 10;
+	  .homogenous = true;
+	  _glossybuttonTextOnly(CAPTION=_("a"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdA"));
+	  _glossybuttonTextOnly(CAPTION=_("s"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdS"));
+	  _glossybuttonTextOnly(CAPTION=_("d"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdD"));
+	  _glossybuttonTextOnly(CAPTION=_("f"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdF"));
+	  _glossybuttonTextOnly(CAPTION=_("g"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdG"));
+	  _glossybuttonTextOnly(CAPTION=_("h"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdH"));
+	  _glossybuttonTextOnly(CAPTION=_("j"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdJ"));
+	  _glossybuttonTextOnly(CAPTION=_("k"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdK"));
+	  _glossybuttonTextOnly(CAPTION=_("l"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdL"));
+      });
+
+	widget(container_x, {
+	  .align = center;
+	  .spacing = 10;
+	  .homogenous = true;
+	  _glossybuttonTextOnly(CAPTION=_("z"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdZ"));
+	  _glossybuttonTextOnly(CAPTION=_("x"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdX"));
+	  _glossybuttonTextOnly(CAPTION=_("c"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdC"));
+	  _glossybuttonTextOnly(CAPTION=_("v"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdV"));
+	  _glossybuttonTextOnly(CAPTION=_("b"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdB"));
+	  _glossybuttonTextOnly(CAPTION=_("n"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdN"));
+	  _glossybuttonTextOnly(CAPTION=_("m"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdM"));
+	  _glossybuttonTextOnly(CAPTION=_(","),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd,"));
+	  _glossybuttonTextOnly(CAPTION=_("."),
+		       		EVENT=deliverEvent($self.eventSink, "kbrd."));
+      });
+	widget(container_x, {
+	  .align = center;
+	  .spacing = 20;
+	  .homogenous = true;
+	  _glossybuttonTextOnly(CAPTION=_("Space"),
+		       		EVENT=deliverEvent($self.eventSink, "kbrdSpace"));
+	  _glossybuttonTextOnly(CAPTION=_("Backspace"),
+		       		EVENT=deliverEvent($self.eventSink, "Backspace"));
+      });
+	widget(container_x, {
+	  .align = center;
+	  .spacing = 20;
+	  .homogenous = true;
+
+
+	  popupButtonOK(deliverEvent($self.eventSink, _("OK")),
+			0.5, !$self.ok);
+	  popupButtonCancel(deliverEvent($self.eventSink, _("Cancel")),
+			    1.0, !$self.cancel);
+      });
+      });
+    );
+  });
+  space(0.2);
+});
