@@ -434,7 +434,7 @@ popup_display_kbrd(prop_t *p, prop_t *string)
         strcat(tmpInput, " ");
       else if (event_is_action(e, ACTION_BS))
       {
-        if (len > 0)
+        if (strlen(tmpInput) > 0)
         {
           strncpy(tmpInput, tmpInput, strlen(tmpInput) - 1);
 	  tmpInput[strlen(tmpInput) - 1] = '\0';
