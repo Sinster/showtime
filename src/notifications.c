@@ -271,3 +271,179 @@ text_dialog(const char *message, char** answer, int flags)
   
   return 0;
 }
+
+/**
+ *
+ */
+int
+text_dialog_kbrd(const char *message, char** answer, int flags)
+{
+  htsmsg_t *m;
+  rstr_t *r;
+
+  prop_t *p = prop_create_root(NULL);
+
+  prop_set_string(prop_create(p, "type"), "textDialogKbrd");
+  prop_set_string_ex(prop_create(p, "message"), NULL, message,
+		     flags & MESSAGE_POPUP_RICH_TEXT ?
+		     PROP_STR_RICH : PROP_STR_UTF8);
+  prop_t *string = prop_create(p, "input");
+  if(flags & MESSAGE_POPUP_CANCEL)
+    prop_set_int(prop_create(p, "cancel"), 1);
+  if(flags & MESSAGE_POPUP_OK)
+    prop_set_int(prop_create(p, "ok"), 1);
+  
+  event_t *e = popup_display_kbrd(p, string);
+  if (event_is_action(e, ACTION_OK))
+  {
+    m = htsmsg_create_map();  
+      
+    r = prop_get_string(string);
+    htsmsg_add_str(m, "input", r ? rstr_get(r) : "");
+    rstr_release(r);
+      
+    htsmsg_get_str(m, "input");
+    
+    setstr(answer, m, "input");
+  }
+  
+  prop_destroy(p);
+  
+  if(event_is_action(e, ACTION_CANCEL)){
+      event_release(e);
+      return -1;
+  } 
+
+  event_release(e);
+  
+  return 0;
+}
+event_t *
+popup_display_kbrd(prop_t *p, prop_t *string)
+{
+  prop_courier_t *pc = prop_courier_create_waitable();
+  event_t *e = NULL;
+
+  prop_t *r = prop_create(p, "eventSink");
+  prop_sub_t *s = prop_subscribe(0, 
+				 PROP_TAG_CALLBACK, eventsink, &e, 
+				 PROP_TAG_ROOT, r,
+				 PROP_TAG_COURIER, pc,
+				 NULL);
+
+  /* Will show the popup */
+  if(prop_set_parent(p, prop_create(prop_get_global(), "popups"))) {
+    /* popuproot is a zombie, this is an error */
+    abort();
+  }
+
+  while (e == NULL || (!event_is_action(e, ACTION_OK) && !event_is_action(e, ACTION_CANCEL)))
+  {
+    while(e == NULL)
+      prop_courier_wait_and_dispatch(pc);
+    if (!event_is_action(e, ACTION_OK) && !event_is_action(e, ACTION_CANCEL))
+    {
+      char *tmpInput;
+      htsmsg_t *m;
+      rstr_t *r;
+      m = htsmsg_create_map();  
+      
+      r = prop_get_string(string);
+      htsmsg_add_str(m, "input", r ? rstr_get(r) : "");
+      rstr_release(r);
+      htsmsg_get_str(m, "input");
+    
+      setstr(&tmpInput, m, "input");
+      if (event_is_action(e, ACTION_KBRD_A))
+        strcat(tmpInput, "a");
+      else if (event_is_action(e, ACTION_KBRD_B))
+        strcat(tmpInput, "b");
+      else if (event_is_action(e, ACTION_KBRD_C))
+        strcat(tmpInput, "c");
+      else if (event_is_action(e, ACTION_KBRD_D))
+        strcat(tmpInput, "d");
+      else if (event_is_action(e, ACTION_KBRD_E))
+        strcat(tmpInput, "e");
+      else if (event_is_action(e, ACTION_KBRD_F))
+        strcat(tmpInput, "f");
+      else if (event_is_action(e, ACTION_KBRD_G))
+        strcat(tmpInput, "g");
+      else if (event_is_action(e, ACTION_KBRD_H))
+        strcat(tmpInput, "h");
+      else if (event_is_action(e, ACTION_KBRD_I))
+        strcat(tmpInput, "i");
+      else if (event_is_action(e, ACTION_KBRD_J))
+        strcat(tmpInput, "j");
+      else if (event_is_action(e, ACTION_KBRD_K))
+        strcat(tmpInput, "k");
+      else if (event_is_action(e, ACTION_KBRD_L))
+        strcat(tmpInput, "l");
+      else if (event_is_action(e, ACTION_KBRD_M))
+        strcat(tmpInput, "m");
+      else if (event_is_action(e, ACTION_KBRD_N))
+        strcat(tmpInput, "n");
+      else if (event_is_action(e, ACTION_KBRD_O))
+        strcat(tmpInput, "o");
+      else if (event_is_action(e, ACTION_KBRD_P))
+        strcat(tmpInput, "p");
+      else if (event_is_action(e, ACTION_KBRD_Q))
+        strcat(tmpInput, "q");
+      else if (event_is_action(e, ACTION_KBRD_R))
+        strcat(tmpInput, "r");
+      else if (event_is_action(e, ACTION_KBRD_S))
+        strcat(tmpInput, "s");
+      else if (event_is_action(e, ACTION_KBRD_T))
+        strcat(tmpInput, "t");
+      else if (event_is_action(e, ACTION_KBRD_U))
+        strcat(tmpInput, "u");
+      else if (event_is_action(e, ACTION_KBRD_V))
+        strcat(tmpInput, "v");
+      else if (event_is_action(e, ACTION_KBRD_W))
+        strcat(tmpInput, "w");
+      else if (event_is_action(e, ACTION_KBRD_X))
+        strcat(tmpInput, "x");
+      else if (event_is_action(e, ACTION_KBRD_Y))
+        strcat(tmpInput, "y");
+      else if (event_is_action(e, ACTION_KBRD_Z))
+        strcat(tmpInput, "z");
+      else if (event_is_action(e, ACTION_KBRD_0))
+        strcat(tmpInput, "0");
+      else if (event_is_action(e, ACTION_KBRD_1))
+        strcat(tmpInput, "1");
+      else if (event_is_action(e, ACTION_KBRD_2))
+        strcat(tmpInput, "2");
+      else if (event_is_action(e, ACTION_KBRD_3))
+        strcat(tmpInput, "3");
+      else if (event_is_action(e, ACTION_KBRD_4))
+        strcat(tmpInput, "4");
+      else if (event_is_action(e, ACTION_KBRD_5))
+        strcat(tmpInput, "5");
+      else if (event_is_action(e, ACTION_KBRD_6))
+        strcat(tmpInput, "6");
+      else if (event_is_action(e, ACTION_KBRD_7))
+        strcat(tmpInput, "7");
+      else if (event_is_action(e, ACTION_KBRD_8))
+        strcat(tmpInput, "8");
+      else if (event_is_action(e, ACTION_KBRD_9))
+        strcat(tmpInput, "9");
+      else if (event_is_action(e, ACTION_KBRD_COMMA))
+        strcat(tmpInput, ",");
+      else if (event_is_action(e, ACTION_KBRD_DOT))
+        strcat(tmpInput, ".");
+      else if (event_is_action(e, ACTION_KBRD_SPACE))
+        strcat(tmpInput, " ");
+      else if (event_is_action(e, ACTION_BS))
+      {
+        if (len > 0)
+        {
+          strncpy(tmpInput, tmpInput, strlen(tmpInput) - 1);
+	  tmpInput[strlen(tmpInput) - 1] = '\0';
+        }
+      }
+      prop_set_string(string, tmpInput);
+      e = NULL;
+    }
+  }
+  prop_unsubscribe(s);
+  return e;
+}

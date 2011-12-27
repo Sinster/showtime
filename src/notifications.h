@@ -35,6 +35,7 @@ void notifications_init(void);
 // Displays popup defined by proptree 'p' and return event
 struct event;
 struct event *popup_display(prop_t *p);
+struct event *popup_display_kbrd(prop_t *p, prop_t *string);
 
 #define MESSAGE_POPUP_OK     0x1
 #define MESSAGE_POPUP_CANCEL 0x2
@@ -43,5 +44,7 @@ struct event *popup_display(prop_t *p);
 int message_popup(const char *message, int flags);
 
 int text_dialog(const char *message, char** string, int flags);
+
+int text_dialog_kbrd(const char *message, char** string, int flags);
  
 #endif // NOTIFICATIONS_H__
